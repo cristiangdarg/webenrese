@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENRESE</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --azul: #0d1b2a;
+            --naranja: #f77f00;
+            --gris: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: var(--azul);
+        }
+
+            .navbar a {
+                color: white !important;
+            }
+
+                .navbar a:hover {
+                    color: var(--naranja) !important;
+                }
+
+        /* HERO */
+        .hero {
+            background: url('img/bg.png') center/cover no-repeat;
+            height: 500px;
+            position: relative;
+        }
+
+        .overlay {
+            background: rgba(0,0,0,0.6);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: white;
+        }
+
+            .overlay h1 {
+                font-size: 60px;
+                font-weight: 700;
+            }
+
+        /* SECCIONES */
+        section {
+            padding: 70px 0;
+        }
+
+        /* CARDS */
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+            .card-custom:hover {
+                transform: translateY(-10px);
+            }
+
+            .card-custom i {
+                font-size: 30px;
+                color: var(--naranja);
+            }
+
+        /* INFO SECTION */
+        .info {
+            background: #f4f4f4;
+        }
+
+        /* CONTACTO */
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--azul);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5); /* 🔥 ajustá acá la oscuridad */
+                z-index: 1;
+            }
+
+        /* Aseguramos que el texto esté arriba */
+        .overlay {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+            .slide.active {
+                opacity: 3;
+            }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background: rgba(0,0,0,0.4);
+            width: 100%;
+            height: 100%;
+        }
+            /* SOMBRA DE TEXTO */
+            .overlay h1 {
+                text-shadow: 2px 2px 6px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.9);
+            }
+
+            .overlay h3 {
+                text-shadow: 1px 1px 5px rgba(0,0,0,0.7), 0 0 8px rgba(255,255,255,0.8);
+            }
+
+            .overlay h5 {
+                text-shadow: 1px 1px 4px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.7);
+            }
+
+        /* ANIMACION */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+    <style>
+        .autoridades {
+            padding: 60px 20px;
+            background: #f5f7fa;
+        }
+
+        .titulo-seccion {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #1e293b;
+        }
+
+        .card-autoridad {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+            .card-autoridad .icono {
+                font-size: 32px; /* icono interno más grande */
+                color: #fff;
+                background: #2ea3d6;
+                width: 100px; /* antes 70px */
+                height: 100px; /* antes 70px */
+                line-height: 100px; /* centrar el icono */
+                border-radius: 50%;
+                margin-bottom: 25px;
+                display: inline-block;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+
+                .card-autoridad .icono:hover {
+                    transform: scale(1.1);
+                    transition: 0.3s;
+                }
+
+            .card-autoridad h4 {
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: #2d3748;
+            }
+
+            .card-autoridad p {
+                font-size: 0.95rem;
+                color: #718096;
+                margin-bottom: 20px;
+            }
+
+            .card-autoridad:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            }
+
+        .btn-primary {
+            background-color: #2ea3d6;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+        }
+
+            .btn-primary:hover {
+                background-color: #1b8bb8;
+            }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="index.html">ENRESE</a>
+
+            <button class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Tarifas.html">Tarifas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Normativas.html">Normativa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero" id="Inicio">
+        <div class="slide active" style="background-image: url('img/img_titulo.jpeg');"></div>
+        <div class="slide" style="background-image: url('img/bg.png');"></div>
+        <div class="slide" style="background-image: url('img/bg2.png');"></div>
+        <div class="slide" style="background-image: url('img/sn.jpeg');"></div>
+
+        <div class="overlay">
+            <h1>ENRESE</h1>
+            <h3>Ente Regulador de Energía de Santiago del Estero</h3>
+            <h5>
+                El Ente Regulador de Energía de Santiago del Estero (ENRESE) es el organismo encargado de supervisar, controlar y regular la prestación del servicio público de energía eléctrica.
+            </h5>
+        </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section id="Servicios" class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">Servicios</h2>
+            <div class="row">
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-custom">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h4>Tarifas</h4>
+                        <p>Consulta de tarifas actualizadas del servicio eléctrico.</p>
+                        <a class="btn btn-secondary" href="Tarifas.html"> ver más info</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-custom">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>Normativa</h4>
+                        <p>Acceso a leyes, decretos y regulaciones vigentes.</p>
+                        <a class="btn btn-secondary" href="Normativas.html"> ver más info</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-custom">
+                        <i class="fas fa-user-cog"></i>
+                        <h4>Gestión de Reclamos</h4>
+                        <p>Acceso a Gestión de reclamos y guías.</p>
+                        <a class="btn btn-secondary" href="Gestiondereclamos.html"> ver más info</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-custom">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Uso eficiente de la energía</h4>
+                        <p>Consejos y recomendaciones para el ahorro energético.</p>
+                        <a class="btn btn-secondary" href="Usoeficientedelaenergía.html">Ver más info</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-custom">
+                        <i class="fas fa-edit"></i>
+                        <h4>Registro de beneficiarios</h4>
+                        <p>Inscripción y actualización de datos de usuarios.</p>
+                        <a class="btn btn-secondary" href="#">Ver más info</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-custom">
+                        <i class="fas fa-sitemap"></i>
+                        <h4>Área de ENRESE</h4>
+                        <p>Las áreas del ENRESE constituyen la estructura operativa del organismo.</p>
+                        <a class="btn btn-secondary" href="#">Ver más info</a>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </section>
+    <!-- AUTORIDADES -->
+    <section class="autoridades">
+        <div class="container text-center">
+            <h2 class="titulo-seccion">Nuestras Autoridades</h2>
+
+            <div class="row justify-content-center">
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-autoridad">
+                        <!--<i class="fas fa-user-tie icono"></i>-->
+                        <img src="img/Autoridades/DrCabanillas.jpg" class="fas fa-user-tie icono" />
+                        <h4>Presidente</h4>
+                        <h5>Dr. Luis Orlando Cabanillas</h5>
+                        <p>
+                            Responsable de la conducción general del ente regulador.
+                            Define políticas institucionales, supervisa el cumplimiento
+                            de los objetivos y representa al organismo ante entidades públicas y privadas.
+                        </p>
+                        <!--<a class="btn btn-primary" href="#">Ver más info</a>-->
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-autoridad">
+                        <!--<i class="fas fa-user-check icono"></i>-->
+                        <img src="img/Autoridades/CPRubio.jpg" class="fas fa-user-tie icono" />
+                        <h4>Vicepresidente</h4>
+                        <h5>Contador  Ricardo Lino Rubio</h5>
+                        <p>
+                            Asiste al presidente en la gestión institucional y lo reemplaza
+                            en caso de ausencia. Coordina áreas estratégicas y colabora en
+                            la implementación de políticas y toma de decisiones.
+                        </p>
+                        <!--<a class="btn btn-primary" href="#">Ver más info</a>-->
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card-autoridad">
+                        <!--<i class="fas fa-users icono"></i>-->
+                        <img src="img/Autoridades/IngIbanez.jpg" class="fas fa-user-tie icono" />
+                        <h4>Vocal</h4>
+                        <h5>Ing. Nelson Germán Ibáñez</h5>
+                        <p>
+                            Participa en el directorio aportando análisis técnico y jurídico
+                            en la toma de decisiones. Colabora en la regulación, control y
+                            seguimiento de las actividades del sector energético.
+                        </p>
+                        <!--<a class="btn btn-primary" href="#">Ver más info</a>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMACIÓN -->
+    <section id="info" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <h2 class="fw-bold mb-4">Sobre Nosotros</h2>
+                <!-- IMAGEN -->
+                <div class="col-md-6 mb-4 mb-md-0">
+
+                    <img src="img/sn.jpeg" class="img-fluid rounded shadow" alt="Energía">
+                </div>
+
+                <!-- TEXTO -->
+                <div class="col-md-6">
+
+
+                    <p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;El Ente Regulador de Energía de Santiago del Estero (ENRESE) es el organismo
+                        encargado de supervisar, controlar y regular la prestación del servicio público
+                        de energía eléctrica en toda la provincia.
+                    </p>
+
+                    <p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Su misión es garantizar calidad, continuidad y seguridad, resguardando los derechos
+                        de los usuarios mediante una gestión transparente y eficiente.
+                    </p>
+
+                    <p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Promovemos el uso responsable de la energía, el desarrollo sostenible y la mejora
+                        continua del sistema energético provincial.
+                    </p>
+
+                    <!--<p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Como Ente Regulador de Energía de Santiago del Estero, nuestra misión es garantizar que el servicio eléctrico en toda la provincia se preste bajo condiciones de calidad, seguridad, continuidad y equidad para todos los usuarios. Trabajamos de manera permanente en la supervisión, control y regulación de las empresas distribuidoras, asegurando el cumplimiento de las normativas vigentes y promoviendo una relación transparente entre prestadores y ciudadanos.
+                    </p>
+                    <p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Nuestra labor se centra en proteger los derechos de los usuarios, brindando herramientas claras para la realización de reclamos, consultas y gestiones, así como también en fomentar el acceso a la información pública relacionada con el servicio eléctrico. Creemos firmemente que un usuario informado es un usuario protegido, por lo que impulsamos acciones de comunicación, educación y concientización sobre el uso responsable y eficiente de la energía.
+                    </p>-->
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMACIÓN -->
+    <section id="info" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- TEXTO -->
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-4">Nuestro Objetivo</h2>
+
+                    <p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Nuestro objetivo principal es garantizar que el servicio de energía eléctrica en la provincia de Santiago del Estero sea prestado de manera eficiente, segura, continua y en condiciones equitativas para todos los usuarios. Buscamos establecer un equilibrio justo entre los derechos de los ciudadanos y las obligaciones de las empresas prestadoras, promoviendo un sistema energético transparente, confiable y orientado al bienestar de la comunidad.
+                    </p>
+                    <p class="text-muted">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Trabajamos para asegurar el cumplimiento de las normativas vigentes, supervisando y controlando la calidad del servicio brindado, así como también impulsando mejoras constantes en la infraestructura y en los procesos de distribución eléctrica. Nuestro accionar se basa en criterios técnicos, legales y sociales que permitan garantizar estándares adecuados en toda la provincia, tanto en zonas urbanas como rurales.
+                    </p>
+                   
+
+
+
+
+                </div>
+
+                <!-- IMAGEN -->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="img/qsomos.jpeg" class="img-fluid rounded shadow" alt="Energía">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- TEXTO -->
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-4">Contacto</h2>
+
+                    <p>
+                        <strong>📍 Dirección:</strong><br>
+                        Rivadavia 601 (Esq. Belgrano), Piso 7° y 8°
+                    </p>
+
+                    <p>
+                        <strong>📮 Código Postal:</strong><br>
+                        4200
+                    </p>
+
+                    <p>
+                        <strong>📞 Teléfono:</strong><br>
+                        (385) 425-0537 / 0538 <br />
+                        (385) 4250537<br />
+                        (385) 4250538 <br />
+                    </p>
+                    <p>
+                        <strong>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+                            <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 20px;"></i>  whatsapp:
+                        </strong><br /> (385) 4816800 <br /> (385) 4815891
+                    </p>
+
+                </div>
+
+                <!-- MAPA -->
+                <div class="col-md-6">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps?q=Rivadavia+601+Santiago+del+Estero&output=embed"
+                                width="100%"
+                                height="350"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/549XXXXXXXXXX?text=Hola,%20quiero%20realizar%20una%20consulta"
+           class="whatsapp-float"
+           target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </section>
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+            .whatsapp-float i {
+                line-height: 60px;
+            }
+
+            .whatsapp-float:hover {
+                transform: scale(1.1);
+                background-color: #1ebe5d;
+            }
+    </style>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 ENRESE - Santiago del Estero</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let slides = document.querySelectorAll('.slide');
+        let index = 0;
+
+        setInterval(() => {
+            slides[index].classList.remove('active');
+            index = (index + 1) % slides.length;
+            slides[index].classList.add('active');
+        }, 4000);
+    </script>
+</body>
+</html>

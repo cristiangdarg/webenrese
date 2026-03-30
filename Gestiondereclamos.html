@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENRESE</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --azul: #0d1b2a;
+            --naranja: #f77f00;
+            --gris: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: var(--azul);
+        }
+
+            .navbar a {
+                color: white !important;
+            }
+
+                .navbar a:hover {
+                    color: var(--naranja) !important;
+                }
+
+        /* HERO */
+        .hero {
+            background: url('img/bg.png') center/cover no-repeat;
+            height: 500px;
+            position: relative;
+        }
+
+        .overlay {
+            background: rgba(0,0,0,0.6);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: white;
+        }
+
+            .overlay h1 {
+                font-size: 60px;
+                font-weight: 700;
+            }
+
+        /* SECCIONES */
+        section {
+            padding: 70px 0;
+        }
+
+        /* CARDS */
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+            .card-custom:hover {
+                transform: translateY(-10px);
+            }
+
+            .card-custom i {
+                font-size: 30px;
+                color: var(--naranja);
+            }
+
+        /* INFO SECTION */
+        .info {
+            background: #f4f4f4;
+        }
+
+        /* CONTACTO */
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--azul);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5); /* 🔥 ajustá acá la oscuridad */
+                z-index: 1;
+            }
+
+        /* Aseguramos que el texto esté arriba */
+        .overlay {
+            position: absolute;
+            z-index: 2;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+            .slide.active {
+                opacity: 3;
+            }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background: rgba(0,0,0,0.4);
+            width: 100%;
+            height: 100%;
+        }
+            /* SOMBRA DE TEXTO */
+            .overlay h1 {
+                text-shadow: 2px 2px 6px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.9);
+            }
+
+            .overlay h3 {
+                text-shadow: 1px 1px 5px rgba(0,0,0,0.7), 0 0 8px rgba(255,255,255,0.8);
+            }
+
+            .overlay h5 {
+                text-shadow: 1px 1px 4px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.7);
+            }
+
+        /* ANIMACION */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+
+        .normativas-section {
+            padding: 60px 10%;
+            background: #f5f7fa;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        /* FILTROS */
+        .filtros {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+            .filtros input,
+            .filtros select {
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                width: 220px;
+            }
+
+        /* GRID */
+        .grid-normativas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD */
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+            .card h3 {
+                margin-bottom: 10px;
+            }
+
+            .card p {
+                font-size: 14px;
+                color: #555;
+            }
+
+        .tag {
+            display: inline-block;
+            margin-top: 10px;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .card a {
+            display: block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+   
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="index.html">ENRESE</a>
+
+            <button class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Tarifas.html">Tarifas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Normativas.html">Normativa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero" id="Inicio">
+        <div class="slide active" style="background-image: url('img/img_titulo.jpeg');"></div>
+        <div class="slide" style="background-image: url('img/bg.png');"></div>
+        <div class="slide" style="background-image: url('img/bg2.png');"></div>
+
+        <div class="overlay">
+            <h1>ENRESE</h1>
+            <h3>Ente Regulador de Energía de Santiago del Estero</h3>
+            <h5>
+                El Ente Regulador de Energía de Santiago del Estero (ENRESE) es el organismo encargado de supervisar, controlar y regular la prestación del servicio público de energía eléctrica.
+            </h5>
+        </div>
+    </div>
+
+    <!-- ===== SECCIÓN NORMATIVAS ===== -->
+    <section id="normativas" class="normativas-section">
+
+        <h2 class="titulo">Gestión de reclamos</h2>
+
+        <!-- 🔍 FILTROS -->
+        <div class="filtros">
+            <input type="text" id="buscador" placeholder="Buscar normativa...">
+
+            <select id="filtroTipo">
+                <option value="">Todos</option>
+                <option value="Gestoondereclamos">Gestión de reclamos</option>
+                <option value="Revisatufactura">Revisa tu factura</option>
+                <option value="Seguridadpublica">Seguridad publica | Instalaciones Peligrosas</option>
+                <option value="Seguridadpublicaces">Seguridad publica | Consejos para evitar siniestros</option>
+            </select>
+        </div>
+
+        <!-- 📂 LISTADO -->
+        <div class="grid-normativas" id="listaNormativas">
+
+            <div class="card" data-tipo="Gestiondereclamos">
+                <h3>Gestión de reclamos</h3>
+                <p>
+                    Si tenes inconvenientes con el servicio eléctrico que presta EDESE, primero reclama ante la empresa. Si la distribuidora no te responde en el plazo de 15 dias habiles o no te brinda una respuesta satisfactoria, contactanos por esta via a traves de la Guia de reclamos rellenando los formularios o personalmente en:
+                    Rivadavia 601 (Esquina Belgrano) , Piso 7° y 8, ciudad de Santiago del Estero, de Lunes a Viernes de 7 a 14
+                </p>
+            </div>
+            <div class="card" data-tipo="Revisatufactura">
+                <h3>Revisa tu factura</h3>
+                <p>
+                    Conoce los items principales de la factura del servicio de distribución eléctrica que presenta EDESE, haciendo click en el siguiente botón:
+                </p>
+                <span class="tag">Factura EDESE</span>
+                <a href="pdf/Factura/Factura.pdf">Ver Factura EDESE</a>
+            </div>
+
+        
+
+
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- TEXTO -->
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-4">Contacto</h2>
+
+                    <p>
+                        <strong>📍 Dirección:</strong><br>
+                        Rivadavia 601 (Esq. Belgrano), Piso 7° y 8°
+                    </p>
+
+                    <p>
+                        <strong>📮 Código Postal:</strong><br>
+                        4200
+                    </p>
+
+                    <p>
+                        <strong>📞 Teléfono:</strong><br>
+                        (385) 425-0537 / 0538 <br />
+                        (385) 4250537<br />
+                        (385) 4250538 <br />
+                    </p>
+                    <p>
+                        <strong>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+                            <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 20px;"></i>  whatsapp:
+                        </strong><br /> (385) 4816800 <br /> (385) 4815891
+                    </p>
+
+                </div>
+
+                <!-- MAPA -->
+                <div class="col-md-6">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps?q=Rivadavia+601+Santiago+del+Estero&output=embed"
+                                width="100%"
+                                height="350"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 ENRESE - Santiago del Estero</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let slides = document.querySelectorAll('.slide');
+        let index = 0;
+
+        setInterval(() => {
+            slides[index].classList.remove('active');
+            index = (index + 1) % slides.length;
+            slides[index].classList.add('active');
+        }, 4000);
+    </script>
+    <script>
+        const buscador = document.getElementById("buscador");
+        const filtroTipo = document.getElementById("filtroTipo");
+        const cards = document.querySelectorAll(".card");
+
+        function filtrar() {
+            const texto = buscador.value.toLowerCase();
+            const tipo = filtroTipo.value;
+
+            cards.forEach(card => {
+                const titulo = card.querySelector("h3").innerText.toLowerCase();
+                const cardTipo = card.getAttribute("data-tipo");
+
+                const coincideTexto = titulo.includes(texto);
+                const coincideTipo = tipo === "" || tipo === cardTipo;
+
+                if (coincideTexto && coincideTipo) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        buscador.addEventListener("keyup", filtrar);
+        filtroTipo.addEventListener("change", filtrar);
+    </script>
+</body>
+</html>
